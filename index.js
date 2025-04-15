@@ -13,7 +13,7 @@ const port = 3000;
 
 // Get method lên server
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello Young Itatri !');
 });
 
 // Set server chạy trên port 3000
