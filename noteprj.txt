@@ -2,3 +2,4 @@
 - Chạy file js : node <file.js>
 - Cài đặt framework express : npm install express
 - Cài đặt nodemon chạy host reload :npm install nodemon
+- Chạy project : npm start
