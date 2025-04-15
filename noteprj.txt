@@ -1,0 +1,4 @@
+### Lệnh thường dùng 
+- Chạy file js : node <file.js>
+- Cài đặt framework express : npm install express
+
