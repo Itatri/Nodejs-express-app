@@ -3,3 +3,4 @@
 - Cài đặt framework express : npm install express
 - Cài đặt nodemon chạy host reload :npm install nodemon
 - Chạy project : npm start
+- Cài đặt thư viện body parser : npm install body-parser dùng để lấy dữ liệu từ form
