@@ -40,12 +40,21 @@ const Hello = [
     }
 ]
 
+// Cau hinh view engine
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
+// Cau hinh public static file de su dung trong project . 
+// Test : http://localhost:3000/Itatri_portfo.jpg
+app.use(express.static('public'));
+
 // Cau hinh body-parser de nhan du lieu tu client
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.send('Hello Young Itatri !');
+    // render view index.ejs
+    res.render('index');
 });
 
 
