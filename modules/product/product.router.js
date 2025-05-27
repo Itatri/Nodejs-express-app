@@ -5,8 +5,10 @@ const prefix = '/products'; // Test url : http://localhost:3000/products
 const productController = require('./product.controller');
 
 // Goi den function getAllproduct
+// Goi den function getAllproduct
 router.get(prefix, productController.getAllproduct);
-router.get('${prefix}/detail/:id', productController.getProducrById);
+router.get(`${prefix}/detail/:id`, productController.getProducrById); 
+router.get(`${prefix}/create`, productController.createProduct); 
 router.post(prefix, productController.createProduct);
 router.put(prefix, productController.updateProduct);
 router.delete(prefix, productController.deleteProduct);

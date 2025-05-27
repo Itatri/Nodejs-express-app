@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Create</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper-header">
+      <div class="box-branch">
+        <div class="logo-header">
+          <img class="image-logo" src="/image/logo.png" alt="Header" />
+        </div>
+        <div class="text-branch" onclick="window.location.href = '/'">
+          ITA 
+        </div>
+      </div>
+      <div class="box-nav">
+        <div class="nav-link" onclick="window.location.href = '/products/'">
+          Home
+        </div>
+        <div class="nav-link active">Create</div>
+      </div>
+    </div>
+    <div class="wrapper-body">
+      <div>
+        <input type="text" placeholder="Enter your name product" id="nameProduct" />
+      </div>
+      <div>
+        <input type="text" placeholder="Enter your price product" id="priceProduct" />
+      </div>
+      <div>
+        <input type="text" placeholder="Enter your image product" id="imageProduct" />
+      </div>
+      <div>
+        <button id="submitProduct">Submit</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    let nameProduct = document.getElementById('nameProduct');
+    let priceProduct = document.getElementById('priceProduct');
+    let imageProduct = document.getElementById('imageProduct');
+
+    document.getElementById('submitProduct').addEventListener('click', () => {
+      fetch('http://localhost:3000/products/create', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify({
+          name: nameProduct.value,
+          price: priceProduct.value,
+          image: imageProduct.value,
+        }),
+      })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json == 200) {
+          window.location.href = '/products';
+        }
+      })
+    });
+  </script>
+</html>
