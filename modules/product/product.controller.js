@@ -40,10 +40,10 @@ const products = [
 ]
 // Khoi tao object titles
 const titles = {
-    title: 'Trang chủ',
+    title: 'Sản phẩm',
     navhome: 'Home',
     navcreate: 'Create',
-    message: 'Welcome to ITA'
+    message: 'Danh sách sản phẩm'
 }
 
 const data = {
@@ -54,7 +54,7 @@ const data = {
 
 exports.getAllproduct = (req, res) => {
     // Render view index.ejs : render chỉ nhận object
-    res.render('index', data);
+    res.render('product/index', data); // Render view index.ejs
 };
 
 
@@ -71,8 +71,7 @@ exports.getProducrById =  (req, res) => {
 // });
 
 exports.createProduct = (req, res)=> {
-    const body = req.body;
-    res.json(body);
+    res.render('product/create'); // Render view create.ejs
 };
 
 exports.updateProduct = (req, res)=> {

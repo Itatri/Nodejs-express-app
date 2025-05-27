@@ -32,6 +32,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', productRouter);
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
 // Set server chạy trên port 3000
 app.listen(port, () => {
     console.log('Server is running on http://localhost:' + port);
