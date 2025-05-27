@@ -82,3 +82,19 @@ exports.updateProduct = (req, res)=> {
 exports.deleteProduct = (req, res)=> {
     res.json('Delete');
 };
+
+exports.postCreateProduct = (req, res)=> {
+    try {
+        // Lay du lieu tu form
+        const {body} = req;
+        
+        products.push({
+            id : Number(Math.random()),
+            ...body,
+        });
+        res.json(200);
+    } 
+    catch (error) {
+        console.log(error);
+    }
+}

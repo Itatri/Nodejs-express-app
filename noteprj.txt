@@ -5,3 +5,9 @@
 - Chạy project : npm start
 - Cài đặt thư viện body parser : npm install body-parser dùng để lấy dữ liệu từ form
 - Cài đặt thư viện giao diện ejs :  npm install ejs
+
+### Giải thích nội dung file .gitignore :
+
+- node_modules/ : Loại trừ toàn bộ thư mục node_modules
+- .env : Loại trừ file chứa biến môi trường (nếu có)
+- .DS_Store : Loại trừ file hệ thống của macOS (nếu bạn dùng macOS)
