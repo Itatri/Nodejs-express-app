@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Prodcut</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper-header">
+      <div class="box-branch">
+        <div class="logo-header">
+          <img class="image-logo" src="/image/logo.png" alt="Header" />
+        </div>
+        <div class="text-branch" onclick="window.location.href = '/'">
+          Ninedev
+        </div>
+      </div>
+      <div class="box-nav">
+        <div class="nav-link" onclick="window.location.href = '/products/'">
+          Home
+        </div>
+        <div class="nav-link" onclick="window.location.href = '/products/create'">Create</div>
+      </div>
+    </div>
+    <div class="wrapper-detail">
+      <div id="productId" style="display: none;"><%= product.id %></div>
+      <h3>Product name: <%= product.name %></h3>
+      <h4>Product price: <%= product.price %></h3>
+      <img src="<%= product.image %>" width="100%" height="auto">
+      <br>
+      <button onclick="window.location.href = '/products/create?id=<%= product.id %>'">Update</button>
+      <br>
+      <button id="deleteProduct">Delete</button>
+    </div>
+  </body>
+
+  <script>
+    const productId = document.getElementById('productId').innerHTML;
+    document.getElementById('deleteProduct').addEventListener('click', () => {
+      fetch(`http://localhost:3000/products/detail/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        },
+      })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json == 200) {
+          window.location.href = '/products';
+        }
+      })
+    });
+  </script>
+</html>

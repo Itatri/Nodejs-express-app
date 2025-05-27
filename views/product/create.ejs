@@ -39,9 +39,37 @@
     </div>
   </body>
   <script>
+    const params = new Proxy ( new URLSearchParams(window.location.search),{
+      get:(searchParams, prop) => searchParams.get(prop),
+    });
+
+    const { id } = params;
+
+    // if (!id) {
+    //     window.location.href = '/404';  
+    // }
+
     let nameProduct = document.getElementById('nameProduct');
     let priceProduct = document.getElementById('priceProduct');
     let imageProduct = document.getElementById('imageProduct');
+
+    const fetchProductDetail = ()   => {
+      fetch(`http://localhost:3000/api/products/detail/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.id) {
+          nameProduct.value = data.name;
+          priceProduct.value = data.price;
+          imageProduct.value = data.image;
+        }
+      })
+    }
+    fetchProductDetail();
 
     document.getElementById('submitProduct').addEventListener('click', () => {
       fetch('http://localhost:3000/products/create', {
