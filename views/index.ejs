@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chu</title>
+    <title><%= title %> </title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
@@ -13,21 +13,33 @@
           <img class="image-logo" src="/image/logo.png" alt="Header" />
         </div>
         <div class="text-branch" onclick="window.location.href = '/'">
-          Itatri
+          Ita
         </div>
       </div>
       <div class="box-nav">
-        <div class="nav-link" onclick="window.location.href = '/products'">Home</div>
+        <div class="nav-link" onclick="window.location.href = '/products'"><%= navhome %></div>
         <div
           class="nav-link"
           onclick="window.location.href = '/products/create'"
         >
-          Create
+        <%= navcreate %>
         </div>
       </div>
     </div>
     <div class="wrapper-body">
-      <h2 style="text-align: center">Welcome to ItatriDev</h2>
+      <h2 style="text-align: center"><%= message %></h2>
+
+      <% products.forEach(item => { %>
+        <div class="box-items" onclick="window.location.href = '/products/detail/<%= item.id%>'">
+          <div class="group-image">
+            <img class="image-main" src="<%= item.image %>" alt="Ninedev" />
+          </div>
+          <div class="group-content">
+            <div class="text-main"><%= item.name %></div>
+            <div class="text-sub"><%= item.price %> USD </div>
+          </div>
+        </div>
+        <% })%>
     </div>
   </body>
 </html>
