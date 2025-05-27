@@ -9,6 +9,7 @@ const productController = require('./product.controller');
 router.get(prefix, productController.getAllproduct);
 router.get(`${prefix}/detail/:id`, productController.getProducrById); 
 router.get(`${prefix}/create`, productController.createProduct); 
+router.post(`${prefix}/create`, productController.postCreateProduct); 
 router.post(prefix, productController.createProduct);
 router.put(prefix, productController.updateProduct);
 router.delete(prefix, productController.deleteProduct);
