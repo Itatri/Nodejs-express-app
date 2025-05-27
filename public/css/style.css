@@ -36,7 +36,7 @@ body {
 .text-branch {
   font-size: 24px;
   font-weight: 800;
-  color: #872727;
+  color:rgb(57, 153, 197);
   text-transform: uppercase;
 }
 
@@ -46,7 +46,7 @@ body {
 }
 
 .box-nav .nav-link {
-  color: #872727;
+  color: rgb(116, 190, 224);
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -55,7 +55,7 @@ body {
 }
 
 .nav-link.active {
-  background: #872727;
+  background:rgb(57, 153, 197);
   color: #fff;
 }
 
@@ -75,7 +75,7 @@ body {
 .box-items {
   display: flex;
   width: -webkit-fill-available;
-  background: #fecdcd69;
+  background: rgb(179, 206, 219);
   padding: 1rem;
   border-radius: 10px;
   column-gap: 1rem;
@@ -115,7 +115,7 @@ input {
 }
 
 button {
-  background: #872727;
+  background: rgb(57, 153, 197);
   color: #fff;
   font-family: "Montserrat", sans-serif;
   outline: none;
