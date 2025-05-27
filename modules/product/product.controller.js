@@ -98,3 +98,54 @@ exports.postCreateProduct = (req, res)=> {
         console.log(error);
     }
 }
+
+exports.putEditProduct = (req, res)=> {
+    try {
+        // Lay du lieu tu form
+        const {body} = req;
+        const {id} = req.params;
+        const index = products.findIndex(item => item.id == id);
+        
+        products[index].name = body.name;
+        products[index].price = body.price;
+        products[index].image = body.image;
+
+        res.json(200);
+    } 
+    catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getDetailProduct = (req, res) => {
+    const {id} = req.params;
+    const product = products.find(item => item.id == id);
+    res.render('product/detail', {product});
+};
+
+exports.getDetailProductByApi = (req, res) => {
+    try {
+        const {id} = req.params;
+        const product = products.find(item => item.id == id);
+        res.json(product);
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+exports.deleteProduct = (req, res) => {
+    const {id} = req.params;
+    const index = products.findIndex(item => item.id == id);
+    products.splice(index, 1);
+
+    try {
+        const {id} = req.params;
+        const index = products.findIndex(item => item.id == id);
+        products.splice(index, 1);
+
+        res.json(200);
+    } catch (error) {
+        console.log(error);
+    }
+}
