@@ -1,0 +1,62 @@
+[{
+  "_id": {
+    "$oid": "683678a8adfa12670930494a"
+  },
+  "name": "Product 1",
+  "description": "Description 1",
+  "price": "1000000 VND",
+  "image": "https://i.pinimg.com/736x/f2/62/48/f262483fce7f54b6d38915d0915c8362.jpg",
+  "category": "68367790adfa126709304945"
+},
+{
+  "_id": {
+    "$oid": "683678a8adfa12670930494b"
+  },
+  "name": "Product 2",
+  "description": "Description 2",
+  "price": "2000000 VND",
+  "image": "https://i.pinimg.com/736x/cc/88/b3/cc88b3e9df32bdb6cf14f411f54a8e2e.jpg",
+  "category": "68367790adfa126709304945"
+},
+{
+  "_id": {
+    "$oid": "683678a8adfa12670930494c"
+  },
+  "name": "Product 3",
+  "description": "Description 3",
+  "price": "3000000 VND",
+  "image": "https://i.pinimg.com/736x/29/7b/25/297b25d0c0242ccc78af7782ab23d879.jpg",
+  "category": "68367790adfa126709304945"
+},
+{
+  "_id": {
+    "$oid": "683678a8adfa12670930494d"
+  },
+  "name": "Product 4",
+  "description": "Description 4",
+  "price": "4000000 VND",
+  "image": "https://i.pinimg.com/736x/e7/4a/70/e74a704bdca1ff65c00bb732cd330619.jpg",
+  "category": "68367790adfa126709304945"
+},
+{
+  "_id": {
+    "$oid": "68368e42777eea78d8da2f76"
+  },
+  "name": "PRD1",
+  "description": "TEST",
+  "price": "1000",
+  "image": "https://i.pinimg.com/736x/b6/00/4a/b6004a42f8beb449cb551e2fcae62926.jpg",
+  "category": "68367790adfa126709304945",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68368ecaf117bf078bc264ee"
+  },
+  "name": "PRD2T",
+  "description": "TEST 2T",
+  "price": "90000",
+  "image": "https://i.pinimg.com/736x/29/7b/25/297b25d0c0242ccc78af7782ab23d879.jpg",
+  "category": "68367790adfa126709304945",
+  "__v": 0
+}]
