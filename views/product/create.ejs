@@ -28,6 +28,9 @@
         <input type="text" placeholder="Enter your name product" id="nameProduct" />
       </div>
       <div>
+        <input type="text" placeholder="Enter your description product" id="nameDescription" />
+      </div>
+      <div>
         <input type="text" placeholder="Enter your price product" id="priceProduct" />
       </div>
       <div>
@@ -45,13 +48,10 @@
 
     const { id } = params;
 
-    // if (!id) {
-    //     window.location.href = '/404';  
-    // }
-
     let nameProduct = document.getElementById('nameProduct');
     let priceProduct = document.getElementById('priceProduct');
     let imageProduct = document.getElementById('imageProduct');
+    let nameDescription = document.getElementById('nameDescription');
 
     const fetchProductDetail = ()   => {
       fetch(`http://localhost:3000/api/products/detail/${id}`, {
@@ -61,34 +61,58 @@
         },
       })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.id) {
-          nameProduct.value = data.name;
-          priceProduct.value = data.price;
-          imageProduct.value = data.image;
+      .then((response) => {
+        if (response.code === 200 && response.data) {
+          nameProduct.value = response.data.name;
+          priceProduct.value = response.data.price;
+          imageProduct.value = response.data.image;
+          nameDescription.value = response.data.description;
         }
       })
     }
     fetchProductDetail();
 
+
+
     document.getElementById('submitProduct').addEventListener('click', () => {
-      fetch('http://localhost:3000/products/create', {
+      const body = JSON.stringify({
+          name: nameProduct.value,
+          price: priceProduct.value,
+          image: imageProduct.value,
+          description: nameDescription.value,
+        })
+      if(id){
+        fetch(`http://localhost:3000/products/edit/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        },
+        body,
+      })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.code === 200) { 
+          window.location.href = '/products';
+        } else {
+          console.error('Error:', response.message);  
+        }
+      })
+      }
+      else {
+        fetch('http://localhost:3000/products/create', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
         },
-        body: JSON.stringify({
-          name: nameProduct.value,
-          price: priceProduct.value,
-          image: imageProduct.value,
-        }),
+        body,
       })
       .then((res) => res.json())
       .then((json) => {
-        if (json == 200) {
+        if (json.code === 200) { 
           window.location.href = '/products';
         }
-      })
+      })  
+      }
     });
   </script>
 </html>

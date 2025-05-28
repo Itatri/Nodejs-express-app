@@ -13,7 +13,7 @@
           <img class="image-logo" src="/image/logo.png" alt="Header" />
         </div>
         <div class="text-branch" onclick="window.location.href = '/'">
-          Ninedev
+          ITA
         </div>
       </div>
       <div class="box-nav">
@@ -27,6 +27,7 @@
       <div id="productId" style="display: none;"><%= product.id %></div>
       <h3>Product name: <%= product.name %></h3>
       <h4>Product price: <%= product.price %></h3>
+      <h4>Product description: <%= product.description %></h3>
       <img src="<%= product.image %>" width="100%" height="auto">
       <br>
       <button onclick="window.location.href = '/products/create?id=<%= product.id %>'">Update</button>
@@ -46,10 +47,10 @@
       })
       .then((res) => res.json())
       .then((json) => {
-        if (json == 200) {
+        if (json.code === 200) { 
           window.location.href = '/products';
         }
-      })
+      })  
     });
   </script>
 </html>
