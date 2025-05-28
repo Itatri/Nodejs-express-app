@@ -1,43 +1,3 @@
-// Controller chua cac logic xu ly
-
-// Khoi tao mang products
-const products = [
-    {
-        id: 1,
-        name: 'Product 1',
-        description: 'Description 1',
-        price: 1000,
-        image: 'https://i.pinimg.com/736x/f2/62/48/f262483fce7f54b6d38915d0915c8362.jpg'
-    },
-    {
-        id: 2,
-        name: 'Product 2',
-        description: 'Description 2',
-        price: 2000,
-        image: 'https://i.pinimg.com/736x/f1/80/4c/f1804c929f1ca9927cc4c728940a3b6a.jpg'
-    },
-    {
-        id: 3,
-        name: 'Product 3',
-        description: 'Description 3',
-        price: 3000,
-        image: 'https://i.pinimg.com/736x/b6/00/4a/b6004a42f8beb449cb551e2fcae62926.jpg'
-    },
-    {
-        id: 4,
-        name: 'Product 4',
-        description: 'Description 4',
-        price: 4000,
-        image: 'https://i.pinimg.com/736x/f2/62/48/f262483fce7f54b6d38915d0915c8362.jpg'
-    },
-    {
-        id: 5,
-        name: 'Product 5',
-        description: 'Description 5',
-        price: 5000,
-        image: 'https://i.pinimg.com/736x/29/7b/25/297b25d0c0242ccc78af7782ab23d879.jpg'
-    }
-]
 // Khoi tao object titles
 const titles = {
     title: 'Sản phẩm',
@@ -46,32 +6,35 @@ const titles = {
     message: 'Danh sách sản phẩm'
 }
 
-const data = {
-    ...titles,
-   products: products
-}
+let products = [];
+
+// Import model product : Import model product từ product.model.js
+const ProductEntity = require('../../models/product.model');
+const ResponseType = require('../../dto/response.type');
 
 
-exports.getAllproduct = (req, res) => {
+exports.getAllproduct = async (req, res) => {
+    const productList = await ProductEntity.find().populate('category');
     // Render view index.ejs : render chỉ nhận object
-    res.render('product/index', data); // Render view index.ejs
+    res.render('product/index', {
+        ...titles,
+        products: productList
+    }); 
+
+    console.log(productList); 
 };
 
 
-exports.getProducrById =  (req, res) => {
+exports.getProducrById = async (req, res) => {
     const {id }= req.params;
-    res.json('Detail id is : ' + Hello.findIndex(item => item.id == id));
+    res.json('Detail id is : ' + ProductEntity.findIndex(item => item.id == id));
 };
 
-// app.get('/course/:id', (req, res) => {
-//     // Link test : http://localhost:3000/course/1?name=Nguyen%20Van%20A&page=1
-//    const {name, page} = req.query;
-//    const {id} = req.params;
-//    res.json('Name: ' + name + ' Page: ' + page + ' ID: ' + id);
-// });
+
 
 exports.createProduct = (req, res)=> {
-    res.render('product/create'); // Render view create.ejs
+    // Render view create.ejs
+    res.render('product/create'); 
 };
 
 exports.updateProduct = (req, res)=> {
@@ -83,69 +46,78 @@ exports.deleteProduct = (req, res)=> {
     res.json('Delete');
 };
 
-exports.postCreateProduct = (req, res)=> {
+exports.postCreateProduct = async (req, res)=> {
     try {
-        // Lay du lieu tu form
+        // Lay du lieu tu form body
         const {body} = req;
         
-        products.push({
-            id : Number(Math.random()),
-            ...body,
-        });
-        res.json(200);
+        const newProduct = new ProductEntity(body);
+        await newProduct.save();
+
+        res.status(200).json(new ResponseType(newProduct).success());
     } 
     catch (error) {
-        console.log(error);
+        res.status(404).json(new ResponseType(null).error());
     }
 }
 
-exports.putEditProduct = (req, res)=> {
+exports.putEditProduct = async (req, res)=> {
     try {
-        // Lay du lieu tu form
         const {body} = req;
         const {id} = req.params;
-        const index = products.findIndex(item => item.id == id);
         
-        products[index].name = body.name;
-        products[index].price = body.price;
-        products[index].image = body.image;
+        const updatedProduct = await ProductEntity.findByIdAndUpdate(
+            id,
+            {
+                name: body.name,
+                price: body.price,
+                image: body.image,
+                description: body.description
+            },
+            { new: true }
+        );
 
-        res.json(200);
+        if (!updatedProduct) {
+            return res.status(404).json(new ResponseType(null).error());
+        }
+
+        res.status(200).json(new ResponseType(updatedProduct).success());
     } 
     catch (error) {
-        console.log(error);
+        console.error('Error updating product:', error);
+        res.status(500).json(new ResponseType(null).error());
     }
 }
 
-exports.getDetailProduct = (req, res) => {
+exports.getDetailProduct = async (req, res) => {
     const {id} = req.params;
-    const product = products.find(item => item.id == id);
+    const product = await ProductEntity.findById(id);
     res.render('product/detail', {product});
 };
 
-exports.getDetailProductByApi = (req, res) => {
+exports.getDetailProductByApi = async (req, res) => {
     try {
         const {id} = req.params;
-        const product = products.find(item => item.id == id);
-        res.json(product);
+        const product = await ProductEntity.findById(id);
+        res.json(new ResponseType(product).success());
     }
     catch (error) {
-        console.log(error);
+        res.json(new ResponseType(null).error());
     }
 }
 
-exports.deleteProduct = (req, res) => {
-    const {id} = req.params;
-    const index = products.findIndex(item => item.id == id);
-    products.splice(index, 1);
-
+exports.deleteProduct = async (req, res) => {
     try {
-        const {id} = req.params;
-        const index = products.findIndex(item => item.id == id);
-        products.splice(index, 1);
+        const { id } = req.params;
+        const result = await ProductEntity.findByIdAndDelete(id);
+        
+        if (!result) {
+            return res.json(new ResponseType(null).error());
+        }
 
-        res.json(200);
+        res.status(200).json(new ResponseType(result).success());
     } catch (error) {
         console.log(error);
+        res.status(404).json(new ResponseType(null).error());
     }
 }
